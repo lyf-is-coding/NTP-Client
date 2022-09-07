@@ -169,9 +169,6 @@ namespace NTP_client
 
 		static void format_info_str( ResultEx* result, char* str );
 		static void get_status_str( QueryStatus status, char* str );
-		//static void time_pt_class_to_struct( time_point_t tp, TimePt& time_pt );
-		//static void extract_time_point( time_point_t tp, int& y, int& m, int& d, int& hr,
-		//								int& min, int& sec, int& ms, int& us, int& ns ) noexcept;
 
 	private:
 		QueryStatus Initialize( const char* hostname );
