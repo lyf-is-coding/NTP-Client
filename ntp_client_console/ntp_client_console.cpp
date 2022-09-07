@@ -6,13 +6,11 @@
 //#define IP          "195.113.144.201"               // NTP server ip <tik.cesnet.cz>
 #define INTERVAL    1000                            // interval of NTP server query
 
-using namespace NTP_client;
-
 static constexpr char CLOUDFLARE_TIME_IP[] = "162.159.200.123";
 
 int main()
 {	
-	Client client;
+	NTPClient::Client client;
 
 	bool is_running = true;
 

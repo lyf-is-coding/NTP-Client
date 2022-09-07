@@ -2,7 +2,7 @@
 
 #include "ntp_client.h"
 
-namespace NTP_client
+namespace NTPClient
 {
 	/* Ctor Dtor */
 

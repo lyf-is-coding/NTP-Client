@@ -120,7 +120,7 @@ server for the client, in 64 - bit timestamp format.
  */
 
 
-namespace NTP_client
+namespace NTPClient
 {
 	struct ResultEx
 	{
