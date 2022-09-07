@@ -191,36 +191,4 @@ namespace NTP_client
 			return status_s[query_status];
 		return nullptr;
 	}
-
-	//QueryStatus Client::set_win_clock( time_point_t tm ) // sysinfoapi.h
-	//{
-	//	SYSTEMTIME st;
-	//	//GetSystemTime(&gt);
-
-	//	int y, m, d, h, mm, sec, ms, us, ns;
-	//	Client::extract_time_point( tm, y, m, d, h, mm, sec, ms, us, ns );
-
-	//	st.wYear = (WORD)y;
-	//	st.wMonth = (WORD)m;
-	//	st.wDay = (WORD)d;
-	//	st.wHour = (WORD)h;
-	//	st.wMinute = (WORD)mm;
-	//	st.wSecond = (WORD)sec;
-	//	st.wMilliseconds = (WORD)ms;
-
-	//	auto ret = SetLocalTime( &st );
-
-	//	if (ret)
-	//	{
-	//		return QueryStatus::OK;
-	//	}
-	//	else
-	//	{
-	//		auto err = GetLastError();
-	//		if (err == 1314)
-	//			return QueryStatus::ADMIN_RIGHTS_NEEDED;
-	//		else
-	//			return QueryStatus::SET_WIN_TIME_ERR;
-	//	}
-	//}
 }
