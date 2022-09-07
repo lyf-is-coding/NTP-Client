@@ -12,9 +12,6 @@ static constexpr char CLOUDFLARE_TIME_IP[] = "162.159.200.123";
 
 int main()
 {	
-	char ntp_server_ip[20]{};                                
-	strcpy_s( ntp_server_ip, CLOUDFLARE_TIME_IP ); 
-
 	Client client;
 
 	bool is_running = true;
@@ -23,9 +20,8 @@ int main()
 	{
 		try
 		{
-			uint32_t epoch_time = client.GetEpochTime( ntp_server_ip );
-
-			if (epoch_time > 0)
+			if (uint32_t epoch_time = client.GetEpochTime( CLOUDFLARE_TIME_IP );
+				 epoch_time > 0)
 			{
 				std::cout << epoch_time << '\n';
 			}
