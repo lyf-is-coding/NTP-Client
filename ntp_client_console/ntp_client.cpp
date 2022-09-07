@@ -159,8 +159,8 @@ namespace NTP_client
 
 	const char* Client::GetQueryStatusString( QueryStatus status ) const
 	{
-		int16_t query_status = (int16_t)status;
-		if (query_status >= 0 && query_status <= 8)
+		if (auto query_status = (int16_t)status;
+			query_status >= 0 && query_status <= 8)
 			return status_s[query_status];
 		return nullptr;
 	}
