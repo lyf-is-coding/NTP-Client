@@ -161,9 +161,6 @@ namespace NTP_client
 	class Client
 	{
 	public:
-		Client();
-		~Client();
-
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
 		uint32_t GetEpochTime( const char* ntp_server_ip );
 

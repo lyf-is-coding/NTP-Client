@@ -4,20 +4,6 @@
 
 namespace NTP_client
 {
-	/* Ctor Dtor */
-
-	Client::Client()
-	{
-		std::cout << "Construct client\n";
-	}
-
-	Client::~Client()
-	{
-		std::cout << "Destruct client\n";
-	}
-
-
-
 	/*  Public Instance Methods  */
 
 	QueryStatus Client::QueryNTPServer( const char* hostname, ResultEx* result_out )
@@ -93,15 +79,7 @@ namespace NTP_client
 		}
 	}
 
-	/*  Public Static Methods  */
 
-	const char* Client::GetQueryStatusString( QueryStatus status ) const
-	{
-		int16_t query_status = (int16_t)status;
-		if (query_status >= 0 && query_status <= 8)
-			return status_s[query_status];
-		return nullptr;
-	}
 
 	/*  Private Methods  */
 
@@ -177,6 +155,14 @@ namespace NTP_client
 		this->EpochTime = this->QueryPacket.txTm_s - NTP_TS_DELTA; // Calculate Epoch time in second
 
 		return QueryStatus::OK;
+	}
+
+	const char* Client::GetQueryStatusString( QueryStatus status ) const
+	{
+		int16_t query_status = (int16_t)status;
+		if (query_status >= 0 && query_status <= 8)
+			return status_s[query_status];
+		return nullptr;
 	}
 
 	//QueryStatus Client::set_win_clock( time_point_t tm ) // sysinfoapi.h
