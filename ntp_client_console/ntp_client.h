@@ -187,7 +187,6 @@ namespace NTP_client
 		char NTPServerIP[STR_MAX_SIZE];
 
 		uint32_t EpochTime;
-	};
 
 		const char status_s[9][50] = { "OK", "Unknown Error", "Init Winsock Err", "Create Socket Err", "Tx Message Err", "Rx Msg Err", "Rx Msg Timeout", "Set Win Time Err", "Admin Rights Needed" };
 	};
