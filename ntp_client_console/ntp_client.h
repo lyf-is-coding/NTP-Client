@@ -19,7 +19,6 @@
 #include <WinSock2.h>
 
 #pragma comment( lib, "Ws2_32.lib" )
-//Ws2_32.lib
 //Mswsock.lib
 //AdvApi32.lib
 
@@ -168,11 +167,13 @@ namespace NTP_client
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
 		uint32_t GetEpochTime( const char* ntp_server_ip );
 
-		static void get_status_str( QueryStatus status, char* str );
+		static void GetQueryStatusString( QueryStatus status, char* str );
 
 	private:
 		QueryStatus Initialize( const char* hostname );
 		QueryStatus Query();
+		const char* GetQueryStatusString( QueryStatus status );
+		void Log();
 
 		WSADATA wsa;
 		sockaddr_in SocketAddress;
@@ -188,12 +189,8 @@ namespace NTP_client
 		uint32_t EpochTime;
 	};
 
-
-	/* helper functions */
-	void Client_get_status_str( enum QueryStatus status, char* str_out );
-
-	const char status_s[9][50] = { "OK", "Unknown Error", "Init Winsock Err", "Create Socket Err", "Tx Message Err",
-		"Rx Msg Err", "Rx Msg Timeout", "Set Win Time Err", "Admin Rights Needed" };
+		const char status_s[9][50] = { "OK", "Unknown Error", "Init Winsock Err", "Create Socket Err", "Tx Message Err", "Rx Msg Err", "Rx Msg Timeout", "Set Win Time Err", "Admin Rights Needed" };
+	};
 }
 
 #endif
