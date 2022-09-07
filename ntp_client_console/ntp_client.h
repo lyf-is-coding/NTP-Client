@@ -167,8 +167,6 @@ namespace NTP_client
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
 		uint32_t GetEpochTime( const char* ntp_server_ip );
 
-		static void GetQueryStatusString( QueryStatus status, char* str );
-
 	private:
 		QueryStatus Initialize( const char* hostname );
 		QueryStatus Query();
