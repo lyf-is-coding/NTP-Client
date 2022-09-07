@@ -172,7 +172,7 @@ namespace NTP_client
 	private:
 		QueryStatus Initialize( const char* hostname );
 		QueryStatus Query();
-		const char* GetQueryStatusString( QueryStatus status );
+		const char* GetQueryStatusString( QueryStatus status ) const;
 		void Log();
 
 		WSADATA wsa;
