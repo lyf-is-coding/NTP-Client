@@ -95,11 +95,11 @@ namespace NTP_client
 
 	/*  Public Static Methods  */
 
-	void Client::get_status_str( QueryStatus status, char* str )
+	const char* Client::GetQueryStatusString( QueryStatus status )
 	{
-		auto socket = (unsigned int)status;
-		if (socket >= 0 && socket <= 8)
-			strcpy( str, status_s[socket] );
+		int16_t query_status = (int16_t)status;
+		if (query_status >= 0 && query_status <= 8)
+			return status_s[query_status];
 	}
 
 	/*  Private Methods  */
