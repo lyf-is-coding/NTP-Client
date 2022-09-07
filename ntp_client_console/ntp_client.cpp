@@ -17,12 +17,6 @@ namespace NTP_client
 
 	/*  Public Instance Methods  */
 
-	void Client_get_status_str( enum QueryStatus status, char* str_out )
-	{
-		Client::get_status_str( status, str_out );
-	}
-
-
 	QueryStatus Client::QueryNTPServer( const char* hostname, ResultEx* result_out )
 	{
 		if (hostname == nullptr || strlen( hostname ) <= 0)
