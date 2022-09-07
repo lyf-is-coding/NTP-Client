@@ -1,3 +1,13 @@
+/*
+Example:
+	Client client;
+	uint32_t epoch_time = client.GetEpochTime( ntp_server_ip );
+	if (epoch_time > 0)
+	{
+		std::cout << epoch_time << '\n';
+	}
+*/
+
 #pragma once
 
 #ifndef NTP_CLIENT_H
