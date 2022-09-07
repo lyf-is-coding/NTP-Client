@@ -91,7 +91,7 @@ namespace NTP_client
 		this->slen = sizeof( this->SocketAddress );
 
 		std::cout << "Initialising Winsock... \n";
-		if (WSAStartup( MAKEWORD( 2, 2 ), &this->wsa ) != 0)
+		if (WSAStartup( MAKEWORD( 2, 2 ), &this->WSData ) != 0)
 		{
 			printf( "Failed.Error Code : %d", WSAGetLastError() );
 			return QueryStatus::INIT_WINSOCK_ERR;
@@ -163,6 +163,11 @@ namespace NTP_client
 		if (query_status >= 0 && query_status <= 8)
 			return status_s[query_status];
 		return nullptr;
+	}
+
+	void Client::Log(const char* method, const char* msg)
+	{
+		std::cout << "[NTPClient] [" << method << "] " << msg << '\n';
 	}
 
 	//QueryStatus Client::set_win_clock( time_point_t tm ) // sysinfoapi.h

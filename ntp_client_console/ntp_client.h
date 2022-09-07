@@ -168,9 +168,9 @@ namespace NTP_client
 		QueryStatus Initialize( const char* hostname );
 		QueryStatus Query();
 		const char* GetQueryStatusString( QueryStatus status ) const;
-		void Log();
+		void Log( const char* method, const char* msg );
 
-		WSADATA wsa;
+		WSADATA WSData;
 		sockaddr_in SocketAddress;
 		SOCKET Socket;
 		int slen;
