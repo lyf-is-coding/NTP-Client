@@ -60,6 +60,7 @@ namespace NTP_client
 	{
 		if (ntp_server_ip == nullptr || strlen( ntp_server_ip ) == 0)
 		{
+			std::cout << "[NTPClient] [GetEpochTime] Invalid NTP Server IP\n";
 			return 0;
 		}
 
@@ -68,11 +69,18 @@ namespace NTP_client
 			// If hostname changed, reinit
 			if (strcmp( this->NTPServerIP, ntp_server_ip ) != 0)
 			{
-				if (this->Initialize( ntp_server_ip ) != QueryStatus::OK) { return 0; }
+				QueryStatus ret = this->Initialize( ntp_server_ip );
+				if (ret != QueryStatus::OK)
+				{
+					std::cout << "[NTPClient] [Initialize] " << GetQueryStatusString( ret ) << '\n';
+					return 0; 
+			}
 			}
 
-			if (this->Query() != QueryStatus::OK)
+			if (QueryStatus ret = this->Query();
+				 ret != QueryStatus::OK)
 			{
+				std::cout << "[NTPClient] [Query] " << GetQueryStatusString( ret ) << '\n';
 				return 0;
 			}
 
