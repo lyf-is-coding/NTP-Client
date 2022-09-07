@@ -165,7 +165,7 @@ namespace NTP_client
 		return nullptr;
 	}
 
-	void Client::Log(const char* method, const char* msg)
+	void Client::Log(const char* method, const char* msg) const
 	{
 		std::cout << "[NTPClient] [" << method << "] " << msg << '\n';
 	}
