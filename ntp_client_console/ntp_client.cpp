@@ -4,6 +4,30 @@
 
 namespace NTP_client
 {
+	/* Ctor Dtor */
+
+	Client::~Client()
+	{
+		try
+		{
+			if (int res = WSACleanup();
+				 res == 0)
+			{
+				this->Log( "WSACleanup", "Terminates success!" );
+			}
+			else
+			{
+				this->Log( "WSACleanup", "Failed", WSAGetLastError() );
+			}
+		}
+		catch (std::exception& e)
+		{
+			std::cout << e.what() << '\n';
+		}
+	}
+
+
+	
 	/*  Public Instance Methods  */
 
 	QueryStatus Client::QueryNTPServer( const char* hostname, ResultEx* result_out )
@@ -86,24 +110,27 @@ namespace NTP_client
 	QueryStatus Client::Initialize( const char* hostname )
 	{
 		strncpy_s( this->NTPServerIP, hostname, strlen( hostname ) );
-		std::cout << "Server: " << this->NTPServerIP << '\n';
+		this->Log("Initialize", "Connecting to server:", this->NTPServerIP);
 
 		this->slen = sizeof( this->SocketAddress );
 
-		std::cout << "Initialising Winsock... \n";
-		if (WSAStartup( MAKEWORD( 2, 2 ), &this->WSData ) != 0)
+		this->Log( "WSAStartup", "Initializing Winsock" );
+		if (int res = WSAStartup( MAKEWORD( 2, 2 ), &this->WSData );
+			 res != 0)
 		{
-			printf( "Failed.Error Code : %d", WSAGetLastError() );
+			this->Log( "WSAStartup", "Failed", WSAGetLastError() );
 			return QueryStatus::INIT_WINSOCK_ERR;
 		}
-		printf( "Initialized.\n" );
+		this->Log( "WSAStartup", "Initialized" );
 
+		this->Log( "socket", "Create a SOCKET for connecting to NTP server" );
 		if (this->Socket = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
 			 this->Socket == INVALID_SOCKET)
 		{
-			printf( "socket() failed with error code : %d", WSAGetLastError() );
+			this->Log( "socket", "Error", WSAGetLastError() );
 			return QueryStatus::CREATE_SOCKET_ERR;
 		}
+		this->Log( "socket", "Success!" );
 
 		// Setup address structure
 		memset( (char*)&this->SocketAddress, 0, sizeof( SocketAddress ) );
@@ -163,11 +190,6 @@ namespace NTP_client
 			query_status >= 0 && query_status <= 8)
 			return status_s[query_status];
 		return nullptr;
-	}
-
-	void Client::Log(const char* method, const char* msg) const
-	{
-		std::cout << "[NTPClient] [" << method << "] " << msg << '\n';
 	}
 
 	//QueryStatus Client::set_win_clock( time_point_t tm ) // sysinfoapi.h

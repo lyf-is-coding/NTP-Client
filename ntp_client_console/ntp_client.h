@@ -157,18 +157,28 @@ namespace NTP_client
 		uint32_t txTm_f;         // 32 bits. Transmit time-stamp fraction of a second.
 	};
 
+#define LOG()
 
 	class Client
 	{
 	public:
+		~Client();
+
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
 		uint32_t GetEpochTime( const char* ntp_server_ip );
 
 	private:
+
 		QueryStatus Initialize( const char* hostname );
 		QueryStatus Query();
 		const char* GetQueryStatusString( QueryStatus status ) const;
-		void Log( const char* method, const char* msg ) const;
+
+		template<typename ...Args>
+		void Log( const char* method, Args&&... args ) const
+		{
+			std::cout << "[NTPClient] [" << method << "] ";
+			((std::cout << args << ' '), ...) << '\n';
+		}
 
 		WSADATA WSData;
 		sockaddr_in SocketAddress;
