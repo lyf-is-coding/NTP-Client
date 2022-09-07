@@ -61,7 +61,7 @@ namespace NTP_client
 
 	uint32_t Client::GetEpochTime( const char* ntp_server_ip )
 	{
-		if (ntp_server_ip == nullptr || strlen( ntp_server_ip ) <= 0)
+		if (ntp_server_ip == nullptr || strlen( ntp_server_ip ) == 0)
 		{
 			return 0;
 		}
