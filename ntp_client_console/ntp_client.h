@@ -167,8 +167,6 @@ namespace NTPClient
 		uint32_t txTm_f;         // 32 bits. Transmit time-stamp fraction of a second.
 	};
 
-#define LOG()
-
 	class Client
 	{
 	public:
