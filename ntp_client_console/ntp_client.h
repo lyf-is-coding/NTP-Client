@@ -166,6 +166,7 @@ namespace NTP_client
 		~Client();
 
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
+		uint32_t GetEpochTime( const char* ntp_server_ip );
 
 		static void format_info_str( ResultEx* result, char* str );
 		static void get_status_str( QueryStatus status, char* str );
@@ -183,7 +184,7 @@ namespace NTP_client
 		char SendingPacket[NTP_PACKET_LEN];
 		char ReceivedPacket[NTP_PACKET_LEN];
 
-		char host[STR_MAX_SIZE];
+		char NTPServerIP[STR_MAX_SIZE];
 
 		uint32_t EpochTime;
 	};

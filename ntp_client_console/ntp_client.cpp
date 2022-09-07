@@ -33,11 +33,11 @@ namespace NTP_client
 		try
 		{
 			// If hostname changed, reinit
-			if (strcmp( this->host, hostname ) != 0)
+			if (strcmp( this->NTPServerIP, hostname ) != 0)
 			{
 				QueryStatus init_ret = this->Initialize( hostname );
-				strncpy_s( this->host, hostname, strlen( hostname ) );
-				std::cout << "Server: " << this->host << '\n';
+				strncpy_s( this->NTPServerIP, hostname, strlen( hostname ) );
+				std::cout << "Server: " << this->NTPServerIP << '\n';
 
 				if (init_ret != QueryStatus::OK) { return init_ret; }
 			}
@@ -48,7 +48,7 @@ namespace NTP_client
 				return ret2;
 			}
 
-			(*result_out).EpochTime = this->EpochTime;	
+			(*result_out).EpochTime = this->EpochTime;
 
 			return ret2;
 		}
@@ -56,6 +56,35 @@ namespace NTP_client
 		{
 			std::cout << exc.what();
 			return QueryStatus::UNKNOWN_ERR;
+		}
+	}
+
+	uint32_t Client::GetEpochTime( const char* ntp_server_ip )
+	{
+		if (ntp_server_ip == nullptr || strlen( ntp_server_ip ) <= 0)
+		{
+			return 0;
+		}
+
+		try
+		{
+			// If hostname changed, reinit
+			if (strcmp( this->NTPServerIP, ntp_server_ip ) != 0)
+			{
+				if (this->Initialize( ntp_server_ip ) != QueryStatus::OK) { return 0; }
+			}
+
+			if (this->Query() != QueryStatus::OK)
+			{
+				return 0;
+			}
+
+			return this->EpochTime;
+		}
+		catch (const std::exception& exc)
+		{
+			std::cout << exc.what();
+			return 0;
 		}
 	}
 
@@ -72,9 +101,11 @@ namespace NTP_client
 
 	QueryStatus Client::Initialize( const char* hostname )
 	{
+		strncpy_s( this->NTPServerIP, hostname, strlen( hostname ) );
+		std::cout << "Server: " << this->NTPServerIP << '\n';
+
 		this->slen = sizeof( this->SocketAddress );
 
-		// Initialise winsock
 		std::cout << "Initialising Winsock... \n";
 		if (WSAStartup( MAKEWORD( 2, 2 ), &this->wsa ) != 0)
 		{
@@ -83,8 +114,7 @@ namespace NTP_client
 		}
 		printf( "Initialized.\n" );
 
-		// Create socket
-		if (this->Socket = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP ); 
+		if (this->Socket = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
 			 this->Socket == INVALID_SOCKET)
 		{
 			printf( "socket() failed with error code : %d", WSAGetLastError() );
