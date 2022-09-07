@@ -10,10 +10,13 @@ namespace NTP_client
 	{
 		std::cout << "Construct client\n";
 	}
+
 	Client::~Client()
 	{
 		std::cout << "Destruct client\n";
 	}
+
+
 
 	/*  Public Instance Methods  */
 
