@@ -13,15 +13,23 @@ int main()
 	NTPClient::Client client;
 
 	bool is_running = true;
-
 	while (is_running)
 	{
 		try
 		{
-			if (uint32_t epoch_time = client.GetEpochTime( CLOUDFLARE_TIME_IP );
-				 epoch_time > 0)
+			if (uint32_t unix_time = client.GetEpochTime( CLOUDFLARE_TIME_IP );
+				 unix_time > 0)
 			{
-				std::cout << epoch_time << '\n';
+				auto opt_ymd = client.ExtractYMD( unix_time );
+				if (opt_ymd.has_value())
+				{
+					std::chrono::year_month_day ymd = std::move( *opt_ymd );
+
+					std::cout << "Unix time " << unix_time << '\n';
+					std::cout << "Year " << (int)ymd.year() << '\n';
+					std::cout << "Month " << (unsigned)ymd.month() << '\n';
+					std::cout << "Day " << (unsigned)ymd.day() << '\n';
+				}
 			}
 
 			Sleep( INTERVAL );
