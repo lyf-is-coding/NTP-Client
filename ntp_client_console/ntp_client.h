@@ -1,10 +1,10 @@
 /*
 Example:
 	Client client;
-	if (uint32_t epoch_time = client.GetEpochTime( CLOUDFLARE_TIME_IP );
-		epoch_time > 0)
+	if (uint32_t unix_time = client.GetUnixTime( CLOUDFLARE_TIME_IP );
+		unix_time > 0)
 	{
-		std::cout << epoch_time << '\n';
+		std::cout << unix_time << '\n';
 	}
 */
 
@@ -125,7 +125,7 @@ namespace NTPClient
 {
 	struct ResultEx
 	{
-		uint32_t EpochTime;		
+		uint32_t UnixTime;		
 	};
 
 	enum class QueryStatus : int16_t
@@ -174,7 +174,7 @@ namespace NTPClient
 		~Client();
 
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
-		uint32_t GetEpochTime( const char* ntp_server_ip );
+		uint32_t GetUnixTime( const char* ntp_server_ip );
 
 		std::optional<std::chrono::year_month_day> ExtractYMD( uint32_t unix_time ) const;
 
@@ -184,7 +184,6 @@ namespace NTPClient
 		QueryStatus Query();
 		const char* GetQueryStatusString( QueryStatus status ) const;
 		
-
 		template<typename ...Args>
 		void Log( const char* method, Args&&... args ) const
 		{
@@ -203,7 +202,7 @@ namespace NTPClient
 
 		char NTPServerIP[STR_MAX_SIZE];
 
-		uint32_t EpochTime;
+		uint32_t UnixTime;
 
 		const char status_s[9][50] = { "OK", "Unknown Error", "Init Winsock Err", "Create Socket Err", "Tx Message Err", "Rx Msg Err", "Rx Msg Timeout", "Set Win Time Err", "Admin Rights Needed" };
 	};

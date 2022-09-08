@@ -57,7 +57,7 @@ namespace NTPClient
 				return ret2;
 			}
 
-			(*result_out).EpochTime = this->EpochTime;
+			(*result_out).UnixTime = this->UnixTime;
 
 			return ret2;
 		}
@@ -68,11 +68,11 @@ namespace NTPClient
 		}
 	}
 
-	uint32_t Client::GetEpochTime( const char* ntp_server_ip )
+	uint32_t Client::GetUnixTime( const char* ntp_server_ip )
 	{
 		if (ntp_server_ip == nullptr || strlen( ntp_server_ip ) == 0)
 		{
-			std::cout << "[NTPClient] [GetEpochTime] Invalid NTP Server IP\n";
+			std::cout << "[NTPClient] [GetUnixTime] Invalid NTP Server IP\n";
 			return 0;
 		}
 
@@ -96,7 +96,7 @@ namespace NTPClient
 				return 0;
 			}
 
-			return this->EpochTime;
+			return this->UnixTime;
 		}
 		catch (const std::exception& exc)
 		{
@@ -197,7 +197,7 @@ namespace NTPClient
 		// Converts u_long result from TCP/IP network order to host byte order
 		this->QueryPacket.txTm_s = ntohl( this->QueryPacket.txTm_s );
 
-		this->EpochTime = this->QueryPacket.txTm_s - NTP_TS_DELTA; // Calculate Epoch time in second
+		this->UnixTime = this->QueryPacket.txTm_s - NTP_TS_DELTA; // Calculate Epoch time in second
 
 		return QueryStatus::OK;
 	}
