@@ -20,6 +20,7 @@ Example:
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
@@ -175,11 +176,14 @@ namespace NTPClient
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
 		uint32_t GetEpochTime( const char* ntp_server_ip );
 
+		std::optional<std::chrono::year_month_day> ExtractYMD( uint32_t unix_time ) const;
+
 	private:
 
 		QueryStatus Initialize( const char* hostname );
 		QueryStatus Query();
 		const char* GetQueryStatusString( QueryStatus status ) const;
+		
 
 		template<typename ...Args>
 		void Log( const char* method, Args&&... args ) const

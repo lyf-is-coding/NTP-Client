@@ -2,6 +2,8 @@
 
 #include "ntp_client.h"
 
+using Clock = std::chrono::system_clock;
+
 namespace NTPClient
 {
 	/* Ctor Dtor */
@@ -101,6 +103,22 @@ namespace NTPClient
 			std::cout << exc.what();
 			return 0;
 		}
+	}
+
+	std::optional<std::chrono::year_month_day> Client::ExtractYMD( uint32_t unix_time ) const
+	{
+		using namespace std::chrono;
+
+		auto unix_duration = duration<int>( unix_time );
+		auto unix_time_point = system_clock::time_point( unix_duration );
+
+		const year_month_day ymd{ floor<days>( unix_time_point ) };
+		if (!ymd.ok())
+		{
+			return std::nullopt;
+		}
+
+		return ymd;
 	}
 
 
