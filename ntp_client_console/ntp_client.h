@@ -173,7 +173,7 @@ namespace NTPClient
 	public:
 		~Client();
 
-		static std::optional<std::chrono::year_month_day> ExtractYMD( uint32_t unix_time );
+		static std::optional<std::chrono::year_month_day> ExtractYearMonthDay( uint32_t unix_time );
 
 		QueryStatus QueryNTPServer( const char* hostname, ResultEx* result_out );
 		uint32_t GetUnixTime( const char* ntp_server_ip );

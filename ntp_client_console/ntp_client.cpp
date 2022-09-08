@@ -30,7 +30,7 @@ namespace NTPClient
 
 	/* Public Static Methods */
 	
-	std::optional<std::chrono::year_month_day> Client::ExtractYMD( uint32_t unix_time )
+	std::optional<std::chrono::year_month_day> Client::ExtractYearMonthDay( uint32_t unix_time )
 	{
 		using namespace std::chrono;
 

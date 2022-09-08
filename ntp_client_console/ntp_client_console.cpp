@@ -20,7 +20,7 @@ int main()
 			if (uint32_t unix_time = client.GetUnixTime( CLOUDFLARE_TIME_IP );
 				 unix_time > 0)
 			{
-				auto opt_ymd = client.ExtractYMD( unix_time );
+				auto opt_ymd = client.ExtractYearMonthDay( unix_time );
 				if (opt_ymd.has_value())
 				{
 					std::chrono::year_month_day ymd = std::move( *opt_ymd );
